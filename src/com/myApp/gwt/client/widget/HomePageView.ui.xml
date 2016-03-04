@@ -1,0 +1,20 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:with type="com.myApp.gwt.client.internationalizaton.MyConstants" field="string" />
+    <ui:style>
+        .bottom {
+            position: absolute;
+            bottom: 0;
+        }
+        .top {
+            position: absolute;
+            top: 0;
+        }
+
+    </ui:style>
+    <g:HTMLPanel height="100%">
+        <g:Label  styleName="{style.top}" ui:field='greetings' />
+        <g:Anchor  styleName="{style.bottom}" ui:field="exitlink" href="/index.html" text = "{string.exit}"/>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

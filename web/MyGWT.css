@@ -1,0 +1,53 @@
+/** Add css rules here for your application. */
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+body, td, a, div, .p {
+    font-family: arial, sans-serif
+}
+
+div.logo {
+    width: 100%;
+    height: 30%;
+    text-align: left;
+    border: 2px double black;
+    position:absolute;
+    left:0;
+    top:0;
+
+}
+div img {
+    width: auto;
+    height: 100%;
+}
+
+div.panel {
+    position: relative;
+    top: 50%;
+    left: 40%;
+    margin-left: -90px;
+    width: 300px;
+    height: 100px;
+    font-size: large;
+}
+
+div.hp {
+    position: absolute;
+    top: 35%;
+    left: 10%;
+    width: 300px;
+    font-size: large;
+    height: 30%;
+}
+footer {
+    font-size:large;
+    text-align:center;
+    background-color: #999;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+}

@@ -1,0 +1,21 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:with type="com.myApp.gwt.client.internationalizaton.MyConstants" field="string" />
+    <g:HTMLPanel>
+        <g:HorizontalPanel spacing="5" >
+            <g:Label width="100" text="{string.user} "/>
+            <g:TextBox width="100" ui:field="username"/>
+        </g:HorizontalPanel>
+        <g:HorizontalPanel spacing="5">
+            <g:Label width="100" text="{string.password}"/>
+            <g:PasswordTextBox width="100" ui:field="password"/>
+        </g:HorizontalPanel>
+        <g:HorizontalPanel spacing="5">
+            <g:Label width="100" text=""/>
+            <g:Button text="{string.login}" ui:field="loginbutton"/>
+        </g:HorizontalPanel>
+
+
+    </g:HTMLPanel>
+
+</ui:UiBinder>
