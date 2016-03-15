@@ -22,7 +22,6 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
     @Autowired
     private UserRepository userRepository;
 
-
     @Override
     public String loginUser(String username, String password) {
         User user = getByUserName(username);
@@ -32,7 +31,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
             logger.info("Getting from DB user:" + username);
 
         return (user != null) && (Password.checkPassword(password, user.getSalt(), user.getPassword())) ?
-                getByUserName(username).getFirstname() :
+                user.getFirstname() :
                 null;
     }
 
