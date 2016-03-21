@@ -1,4 +1,4 @@
-package test;
+package com.myApp.test;
 
 import com.myApp.POJO.Password;
 import com.myApp.POJO.domain.User;
@@ -15,10 +15,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by Fedir on 04.03.2016.

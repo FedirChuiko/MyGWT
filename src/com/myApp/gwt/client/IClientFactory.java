@@ -1,8 +1,8 @@
 package com.myApp.gwt.client;
 
 import com.google.gwt.event.shared.EventBus;
-import com.myApp.gwt.client.widget.HomePageView;
-import com.myApp.gwt.client.widget.LoginPageView;
+import com.myApp.gwt.client.presenter.HomePagePresenter;
+import com.myApp.gwt.client.presenter.LoginPagePresenter;
 
 import java.util.logging.Logger;
 
@@ -11,8 +11,12 @@ import java.util.logging.Logger;
  */
 public interface IClientFactory {
     public Logger getLogger();
+
     public EventBus getEventBus();
-    public LoginPageView getLoginPageView();
-    public HomePageView getHomePageView();
-    public LoginServiceAsync getUserServiceAsync() ;
+
+    public LoginServiceAsync getUserServiceAsync();
+
+    public LoginPagePresenter getLoginPagePresenter();
+
+    public HomePagePresenter getHomePagePresenter();
 }

@@ -5,21 +5,23 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
-import com.myApp.gwt.client.IClientFactory;
-import com.myApp.gwt.client.event.LoginEvent;
-import com.myApp.gwt.client.internationalizaton.MyConstants;
-
-import java.util.logging.Level;
 
 /**
  * Created by Fedir on 24.02.2016.
  */
-public class LoginPageView extends Composite {
+public class LoginPageView extends Composite implements ILoginPageView {
 
-    interface MyUiBinder extends UiBinder<Widget, LoginPageView> {}
+    private Presenter presenter;
+
+    @Override
+    public void setPresenter(Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    interface MyUiBinder extends UiBinder<Widget, LoginPageView> {
+    }
+
     private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
     @UiField
@@ -28,42 +30,21 @@ public class LoginPageView extends Composite {
     PasswordTextBox password;
     @UiField
     Button loginbutton;
+    @UiField
+    Label invalidPassword;
 
-    private IClientFactory factory;
-    public LoginPageView(IClientFactory factory) {
-        this.factory = factory;
+    public LoginPageView() {
         initWidget(uiBinder.createAndBindUi(this));
+        invalidPassword.setVisible(false);
     }
 
-    public String getName(){
-        return username.getValue();
-    }
-
-    public String getPassword(){
-        return password.getText();
+    public void showErrorMessage() {
+        invalidPassword.setVisible(true);
     }
 
     @UiHandler("loginbutton")
     void handleClick(ClickEvent e) {
-        factory.getUserServiceAsync().loginUser(getName(),getPassword(), new AsyncCallback<String>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                Window.alert("Error:"+caught.getLocalizedMessage());
-            }
-
-            @Override
-            public void onSuccess(String result) {
-                MyConstants string = GWT.create(MyConstants.class);
-                if (result==null) {
-                    factory.getLogger().log(Level.SEVERE, "User:" + getName()+" entered invalid pass");
-                    Window.alert(string.invalidPassword());
-                }
-                else {
-                    factory.getLogger().log(Level.SEVERE, "User " + getName()+" logged in");
-                    factory.getEventBus().fireEvent(new LoginEvent(result));
-                }
-            }
-        });
+        presenter.onLoginButtonClicked(username.getValue(), password.getText());
 
     }
 

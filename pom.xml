@@ -149,12 +149,18 @@
             <version>1.10.19</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.gwt.gwtmockito</groupId>
+            <artifactId>gwtmockito</artifactId>
+            <version>1.1.4</version>
+        </dependency>
+
 
     </dependencies>
 
     <build>
         <sourceDirectory>src</sourceDirectory>
-        <testSourceDirectory>src/test</testSourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
         <resources>
             <resource>
                 <directory>src/resources</directory>
@@ -176,7 +182,6 @@
             <executions>
                 <execution>
                     <configuration>
-
                     </configuration>
                     <goals>
                         <goal>compile</goal>
@@ -184,6 +189,7 @@
                 </execution>
             </executions>
         </plugin>
+
         </plugins>
 
         <finalName>hellogwt</finalName>
