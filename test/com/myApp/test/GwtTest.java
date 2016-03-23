@@ -12,6 +12,7 @@ import com.myApp.gwt.client.ITimeProvider;
 import com.myApp.gwt.client.LoginServiceAsync;
 import com.myApp.gwt.client.internationalizaton.MyConstants;
 import com.myApp.gwt.client.widget.HomePageView;
+import com.myApp.gwt.client.widget.LoginPageView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,10 @@ public class GwtTest {
 
     @GwtMock
     private HomePageView homePageView;
+
+    @GwtMock
+    private LoginPageView loginPageView;
+
 
     @GwtMock
     private HasWidgets widgets;
@@ -71,26 +76,36 @@ public class GwtTest {
         appController.go();
         clientFactory.getHomePagePresenter().timeProvider = timeProvider;
         clientFactory.getHomePagePresenter().view = homePageView;
+        clientFactory.getLoginPagePresenter().view = loginPageView;
 
 
     }
 
+
+    void checkGreetingMessage(int time, String greetings) {
+        Mockito.when(timeProvider.getCurrentHour()).thenReturn(time);
+        clientFactory.getLoginPagePresenter().onLoginButtonClicked("username1", "password1");
+        Mockito.verify(homePageView).setGreetings(greetings + ",FirstName1");
+        Mockito.reset(homePageView);
+    }
+
     @Test
-    public void testLogin() {
-        String greetings = "night";
-        for (int time = 0; time <= 24; time++) {
-            if (time == 6)
-                greetings = "morning";
-            if (time == 9)
-                greetings = "day";
-            if (time == 19)
-                greetings = "evening";
-            if (time == 23)
-                greetings = "night";
-            Mockito.when(timeProvider.getCurrentHour()).thenReturn(time);
-            clientFactory.getLoginPagePresenter().onLoginButtonClicked("username1", "password1");
-            Mockito.verify(homePageView).setGreetings(greetings + ",FirstName1");
-            Mockito.reset(homePageView);
-        }
+    public void testSucessfullLogin() {
+        checkGreetingMessage(0, "night");
+        checkGreetingMessage(5, "night");
+        checkGreetingMessage(6, "morning");
+        checkGreetingMessage(8, "morning");
+        checkGreetingMessage(9, "day");
+        checkGreetingMessage(18, "day");
+        checkGreetingMessage(19, "evening");
+        checkGreetingMessage(22, "evening");
+        checkGreetingMessage(23, "night");
+    }
+
+    @Test
+    public void testWrongLogin() {
+        Mockito.when(timeProvider.getCurrentHour()).thenReturn(0);
+        clientFactory.getLoginPagePresenter().onLoginButtonClicked("username1", "wrongPassword");
+        Mockito.verify(loginPageView).showErrorMessage();
     }
 }
