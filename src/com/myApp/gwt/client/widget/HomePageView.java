@@ -11,7 +11,17 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Created by Fedir on 24.02.2016.
  */
-public class HomePageView extends Composite implements IHomePageView {
+public class HomePageView extends Composite implements IHomePageView, IGWTView {
+
+    private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+    @UiField
+    Label greetings;
+    @UiField
+    Anchor exitlink;
+
+    public HomePageView() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
     @Override
     public String getGreetings() {
@@ -23,18 +33,12 @@ public class HomePageView extends Composite implements IHomePageView {
         this.greetings.setText(greetings);
     }
 
-    interface MyUiBinder extends UiBinder<Widget, HomePageView> {}
-    private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+    @Override
+    public void alert(String message) {
+        CustomWidgets.alertWidget("Error", message).center();
+    }
 
-    @UiField
-    Label greetings;
-
-    @UiField
-    Anchor exitlink;
-
-
-    public HomePageView() {
-        initWidget(uiBinder.createAndBindUi(this));
+    interface MyUiBinder extends UiBinder<Widget, HomePageView> {
     }
 
 }

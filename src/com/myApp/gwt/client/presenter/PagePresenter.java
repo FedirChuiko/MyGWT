@@ -11,4 +11,6 @@ public abstract class PagePresenter implements Presenter {
     protected PagePresenter(IClientFactory factory) {
         this.factory = factory;
     }
+
+
 }
